@@ -17,6 +17,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     error Raffle__SendMoreToEnterRaffle();
     error Raffle__TransferFailed();
     error Raffle_RaffleNotOpen();
+    error Raffle__UpkeepNotNeeded(uint256 balance, uint256 playersLength, uint256 raffleState);
 
     /* Type Declarations */
     enum RaffleState {
@@ -40,7 +41,6 @@ contract Raffle is VRFConsumerBaseV2Plus {
     /* Event */
     event RaffleEntered(address indexed player);
     event WinnerPicked(address indexed winner);
-    error Raffle__UpkeepNotNeeded(uint256 balance, uint256 playersLength, uint256 raffleState);
 
     // What data structure should we use? How to keep track of all players?
     constructor(
@@ -99,7 +99,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     // 1. Get a random number. 
     // 2. Use random number to pick a player.
     // 3. Be automatically called.
-    function perfromUpKeep(bytes calldata /* performData */) external {
+    function performUpkeep(bytes calldata /* performData */) external {
         // check to see if enough time has passed.
         // 1000 = 900 = 100, 50
         (bool upkeepNeeded, ) = checkUpKeep("");
@@ -154,5 +154,13 @@ contract Raffle is VRFConsumerBaseV2Plus {
      */
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
+    }
+
+    function getRaffleState() external view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    function getPlayers(uint256 indexOfPlayer) external view returns (address) {
+        return s_players[indexOfPlayer];
     }
 }
