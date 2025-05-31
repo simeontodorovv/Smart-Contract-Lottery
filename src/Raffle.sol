@@ -94,6 +94,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
         bool hasPlayers = s_players.length > 0;
         upkeepNeeded = timeHasPassed && isOpen && hasBalance && hasPlayers;
         return (upkeepNeeded, "");
+        
     }
 
     // 1. Get a random number. 
