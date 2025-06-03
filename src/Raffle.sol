@@ -150,9 +150,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
         emit WinnerPicked(s_recentWinner);
     }
 
-    /**
-     * Getter Functions
-     */
+    // Getter Functions
+
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
     }
