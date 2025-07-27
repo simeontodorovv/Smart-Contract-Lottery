@@ -148,6 +148,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
             revert();
         }
         emit WinnerPicked(s_recentWinner);
+    
     }
 
     // Getter Functions
